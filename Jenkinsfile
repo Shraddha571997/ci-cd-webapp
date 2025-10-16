@@ -16,13 +16,18 @@ pipeline {
             }
         }
 
+        // Replace this old stage with the Windows-ready one
         stage('Run Docker Container') {
             steps {
                 script {
-                    // Remove existing container if running
-                    sh 'docker rm -f my-web-app || true'
+                    // Stop and remove existing container if it exists
+                    bat """
+                    docker stop my-web-app 2>nul
+                    docker rm my-web-app 2>nul
+                    """
+
                     // Run new container
-                    docker.image('my-web-app').run('-d -p 8081:80 --name my-web-app')
+                    bat 'docker run -d -p 8081:80 --name my-web-app my-web-app'
                 }
             }
         }
