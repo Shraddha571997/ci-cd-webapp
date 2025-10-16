@@ -3,7 +3,8 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/Shraddha571997/ci-cd-webapp.git'
+                git branch: 'main', url: 'https://github.com/Shraddha571997/ci-cd-webapp.git
+
             }
         }
         stage('Build Docker Image') {
